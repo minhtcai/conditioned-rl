@@ -31,54 +31,27 @@ def run_episode(
 
     # reset the environment to get the initial state
     state, goal_state = env.reset() # pylint: disable=unused-variable
-    #state = state.astype(np.float32)
-    #goal_state = goal_state.astype(np.float32)
-    #print(type(state))
-    #print(type(goal_state))
-    #print(state.dtype) # torch.float32 for bit flip
-    #print('????')
 
     for _ in range(steps_per_episode):
 
         # ======================== TODO modify code ========================
-        #pass
-        #print('br')
-        #print(q_net)
-        #print(goal_state)
-        #print(type(goal_state))
-        #print('before')
-
-        #print(state.dtype) # state got change to float 64
-        #state.clone().to(torch.float32)
-        #goal_state.clone().to(torch.float32)
+       
+        # set data format
         state = state.astype(np.float32)
         goal_state = goal_state.astype(np.float32)
-
 
         # append goal state to input, and prepare for feeding to the q-network
         _input =  np.concatenate((state, goal_state), axis = 0)
         _input = torch.tensor(_input)
-        #print(_input.dtype) # torch.float64 for draw sewer, torch.float32 for bit flip
 
         # forward pass to find action
-        #q_net = q_net.double()
         action = q_net(_input)
-        #print('after action')
-        #print(action)
+
         # action
         action = torch.argmax(action, keepdim=True)
-        #print(_output)
-        #print(action)
 
         # take action, use env.step
         next_state, reward, done, info = env.step(action.item())
-        #print(done)
-        #print(len(next_state))
-        #print(state)
-        #print(reward)
-        #print(done)
-        #print(info)
-        # state, reward, done, info
 
         # add transition to episode_experience as a tuple of
         # (state, action, reward, next_state, goal)

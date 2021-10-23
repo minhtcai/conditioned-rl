@@ -47,7 +47,6 @@ def update_replay_buffer(
         # ======================== TODO modify code ========================
         if her_type == HERType.FINAL:
             # relabel episode based on final state in episode
-            
             # get final goal
             _state, _action, _reward, _next_state, _goal = episode_experience[-1]
             
